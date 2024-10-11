@@ -1,0 +1,78 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary-color: #6c63ff;
+  --secondary-color: #4caf50;
+  --background-color: #121212;
+  --text-color: #ffffff;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+.custom-cursor {
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--primary-color);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  transition: all 0.1s ease;
+  transform: translate(-50%, -50%);
+}
+
+.custom-cursor.hover {
+  width: 40px;
+  height: 40px;
+  background-color: rgba(108, 99, 255, 0.2);
+}
+
+.section-heading {
+  @apply text-4xl font-bold mb-8 text-center;
+  color: var(--primary-color);
+}
+
+.btn-primary {
+  @apply bg-primary text-white font-semibold py-2 px-4 rounded-lg transition duration-300 ease-in-out;
+}
+
+.btn-primary:hover {
+  @apply bg-opacity-80;
+}
+
+.project-card {
+  @apply bg-gray-800 rounded-lg overflow-hidden shadow-lg transition duration-300 ease-in-out;
+}
+
+.project-card:hover {
+  @apply transform scale-105;
+}
+
+.skill-tag {
+  @apply bg-secondary text-white text-xs font-semibold px-2 py-1 rounded-full mr-2 mb-2;
+}
+
+.timeline-item {
+  @apply relative pl-8 pb-8 border-l-2 border-primary;
+}
+
+.timeline-item::before {
+  content: "";
+  @apply absolute w-4 h-4 bg-primary rounded-full -left-[9px] top-1;
+}
+
+.contact-input {
+  @apply w-full bg-gray-800 text-white border-2 border-gray-700 rounded-lg py-2 px-4 focus:outline-none focus:border-primary transition duration-300;
+}
+
+.social-icon {
+  @apply text-gray-400 hover:text-primary transition duration-300;
+}
