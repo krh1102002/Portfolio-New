@@ -3,27 +3,23 @@ import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import * as THREE from "three";
 
+// Updated skills list
 const skills = [
+  "HTML",
+  "CSS",
+  "SCSS",
+  "BootStrap",
+  "Material-UI",
+  "Tailwind.CSS",
   "JavaScript",
   "TypeScript",
-  "React",
-  "Vue.js",
+  "React.js",
+  "AngularJS",
   "Node.js",
-  "Express",
   "MongoDB",
   "SQL",
-  "GraphQL",
-  "REST API",
-  "HTML5",
-  "CSS3",
-  "Sass",
-  "Tailwind CSS",
-  "Webpack",
-  "Git",
-  "Docker",
-  "AWS",
-  "Three.js",
-  "WebGL",
+  "MySql",
+  "PostgreSql",
 ];
 
 const Skills: React.FC = () => {
@@ -58,6 +54,7 @@ const Skills: React.FC = () => {
     camera.position.z = 15;
 
     const skillSpheres: THREE.Mesh[] = [];
+    const skillTexts: THREE.Sprite[] = [];
 
     skills.forEach((skill, index) => {
       const skillGeometry = new THREE.SphereGeometry(0.2, 16, 16);
@@ -70,11 +67,37 @@ const Skills: React.FC = () => {
       skillMesh.position.setFromSphericalCoords(6, phi, theta);
       sphere.add(skillMesh);
       skillSpheres.push(skillMesh);
+
+      // Create text sprite
+      const canvas = document.createElement("canvas");
+      const context = canvas.getContext("2d");
+      // Increase canvas size to fit larger names more easily
+      canvas.width = 512;
+      canvas.height = 512;
+      if (context) {
+        // Use a more professional font-family and adjust font size for better readability
+        context.font = "Bold 70px 'Helvetica Neue', Arial, sans-serif";
+        context.fillStyle = "white";
+        context.textAlign = "center";
+        context.textBaseline = "middle"; // Ensure text is vertically centered
+        context.fillText(skill, canvas.width / 2, canvas.height / 2);
+      }
+
+      const texture = new THREE.CanvasTexture(canvas);
+      const spriteMaterial = new THREE.SpriteMaterial({ map: texture });
+      const sprite = new THREE.Sprite(spriteMaterial);
+      // Adjust the scale to ensure it fits properly in the scene
+      sprite.scale.set(3, 1.5, 1);
+      sprite.position.copy(skillMesh.position);
+      sprite.position.multiplyScalar(1.1);
+      sphere.add(sprite);
+      skillTexts.push(sprite);
     });
 
     const animate = () => {
       requestAnimationFrame(animate);
       sphere.rotation.y += 0.005;
+      skillTexts.forEach((text) => text.lookAt(camera.position));
       renderer.render(scene, camera);
     };
 
