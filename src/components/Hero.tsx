@@ -2,6 +2,8 @@ import React, { useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import Typewriter from "typewriter-effect";
 import * as THREE from "three";
+import resume from "../assets/resume.pdf";
+import { AiOutlineDownload } from "react-icons/ai";
 
 const Hero: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -58,7 +60,7 @@ const Hero: React.FC = () => {
   return (
     <section
       id="hero"
-      className="relative h-screen flex items-center justify-center overflow-hidden"
+      className="relative h-screen flex items-center justify-center overflow-hidden bg-background text-text"
     >
       <canvas ref={canvasRef} className="absolute inset-0" />
       <div className="container mx-auto px-6 z-10">
@@ -68,10 +70,10 @@ const Hero: React.FC = () => {
           transition={{ duration: 0.8 }}
           className="text-center"
         >
-          <h1 className="text-5xl md:text-7xl font-bold mb-4">
+          <h1 className="text-5xl md:text-7xl font-bold mb-4 text-primary">
             <Typewriter
               options={{
-                strings: ["Kunal Hulke", "Full Stack Developer", "Freelancer"],
+                strings: ["KUNAL HULKE", "FULL STACK DEVELOPER", "FREELANCER"],
                 autoStart: true,
                 loop: true,
               }}
@@ -80,13 +82,19 @@ const Hero: React.FC = () => {
           <p className="text-xl md:text-2xl mb-8">
             Crafting digital experiences that inspire
           </p>
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="btn-primary"
-          >
-            View My Work
-          </motion.button>
+          {/* Centering the button */}
+          <div className="flex justify-center">
+            <motion.a href={resume} download>
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="btn-primary flex items-center space-x-2"
+              >
+                <AiOutlineDownload size={20} />
+                <span>Download Resume</span>
+              </motion.button>
+            </motion.a>
+          </div>
         </motion.div>
       </div>
     </section>
