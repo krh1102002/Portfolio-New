@@ -82,7 +82,7 @@ const Hero: React.FC = () => {
           <p className="text-xl md:text-2xl mb-8">
             Crafting digital experiences that inspire
           </p>
-          {/* Centering the button */}
+
           <div className="flex justify-center">
             <motion.a href={resume} download>
               <motion.button
