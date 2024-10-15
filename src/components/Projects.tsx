@@ -121,7 +121,7 @@ const Projects: React.FC = () => {
                 alt={project.title}
                 className="w-full h-48 object-cover"
               />
-              <div className="p-6">
+              <div className="p-4">
                 <h3 className="text-xl font-semibold mb-2 text-white">
                   {project.title}
                 </h3>
