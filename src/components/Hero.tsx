@@ -70,7 +70,7 @@ const Hero: React.FC = () => {
           transition={{ duration: 0.8 }}
           className="text-center"
         >
-          <h1 className="text-5xl md:text-7xl font-bold mb-4 text-primary">
+          <h1 className="text-5xl md:text-7xl font-bold mb-4 text-preprimary">
             <Typewriter
               options={{
                 strings: ["KUNAL HULKE", "FULL STACK DEVELOPER", "FREELANCER"],
