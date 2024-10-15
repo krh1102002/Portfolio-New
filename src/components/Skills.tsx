@@ -2,24 +2,43 @@ import React, { useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import * as THREE from "three";
+import ReactDOM from "react-dom";
+import {
+  FaHtml5,
+  FaCss3Alt,
+  FaSass,
+  FaBootstrap,
+  FaReact,
+  FaNodeJs,
+} from "react-icons/fa";
+import {
+  SiJavascript,
+  SiTypescript,
+  SiAngular,
+  SiMongodb,
+  SiMysql,
+  SiPostgresql,
+  SiTailwindcss,
+} from "react-icons/si";
+import { MdDesignServices } from "react-icons/md";
 
-// Updated skills list
+// Updated skills list with correct icons
 const skills = [
-  "HTML",
-  "CSS",
-  "SCSS",
-  "BootStrap",
-  "Material-UI",
-  "Tailwind.CSS",
-  "JavaScript",
-  "TypeScript",
-  "React.js",
-  "AngularJS",
-  "Node.js",
-  "MongoDB",
-  "SQL",
-  "MySql",
-  "PostgreSql",
+  { name: "HTML", icon: FaHtml5 },
+  { name: "CSS", icon: FaCss3Alt },
+  { name: "SCSS", icon: FaSass },
+  { name: "BootStrap", icon: FaBootstrap },
+  { name: "Material-UI", icon: MdDesignServices },
+  { name: "Tailwind CSS", icon: SiTailwindcss },
+  { name: "JavaScript", icon: SiJavascript },
+  { name: "TypeScript", icon: SiTypescript },
+  { name: "React.js", icon: FaReact },
+  { name: "Angular", icon: SiAngular },
+  { name: "Node.js", icon: FaNodeJs },
+  { name: "MongoDB", icon: SiMongodb },
+  { name: "SQL", icon: SiMysql },
+  { name: "MySQL", icon: SiMysql },
+  { name: "PostgreSQL", icon: SiPostgresql },
 ];
 
 const Skills: React.FC = () => {
@@ -54,7 +73,7 @@ const Skills: React.FC = () => {
     camera.position.z = 15;
 
     const skillSpheres: THREE.Mesh[] = [];
-    const skillTexts: THREE.Sprite[] = [];
+    const skillSprites: THREE.Sprite[] = [];
 
     skills.forEach((skill, index) => {
       const skillGeometry = new THREE.SphereGeometry(0.2, 16, 16);
@@ -68,36 +87,69 @@ const Skills: React.FC = () => {
       sphere.add(skillMesh);
       skillSpheres.push(skillMesh);
 
-      // Create text sprite
+      // Create icon and text sprite
       const canvas = document.createElement("canvas");
       const context = canvas.getContext("2d");
-      // Increase canvas size to fit larger names more easily
       canvas.width = 512;
-      canvas.height = 512;
+      canvas.height = 128;
       if (context) {
-        // Use a more professional font-family and adjust font size for better readability
-        context.font = "Bold 70px 'Helvetica Neue', Arial, sans-serif";
+        context.clearRect(0, 0, canvas.width, canvas.height);
         context.fillStyle = "white";
-        context.textAlign = "center";
-        context.textBaseline = "middle"; // Ensure text is vertically centered
-        context.fillText(skill, canvas.width / 2, canvas.height / 2);
-      }
+        context.font = "Bold 36px 'Helvetica Neue', Arial, sans-serif";
+        context.textAlign = "left";
+        context.textBaseline = "middle";
 
-      const texture = new THREE.CanvasTexture(canvas);
-      const spriteMaterial = new THREE.SpriteMaterial({ map: texture });
-      const sprite = new THREE.Sprite(spriteMaterial);
-      // Adjust the scale to ensure it fits properly in the scene
-      sprite.scale.set(3, 1.5, 1);
-      sprite.position.copy(skillMesh.position);
-      sprite.position.multiplyScalar(1.1);
-      sphere.add(sprite);
-      skillTexts.push(sprite);
+        // Render icon
+        const IconComponent = skill.icon;
+        const iconCanvas = document.createElement("canvas");
+        const iconCtx = iconCanvas.getContext("2d");
+        iconCanvas.width = 64;
+        iconCanvas.height = 64;
+
+        if (iconCtx) {
+          const iconSvg = document.createElementNS(
+            "http://www.w3.org/2000/svg",
+            "svg"
+          );
+          iconSvg.setAttribute("width", "64");
+          iconSvg.setAttribute("height", "64");
+
+          const iconReact = React.createElement(IconComponent, { size: 64 });
+          ReactDOM.render(iconReact, iconSvg);
+
+          const svgString = new XMLSerializer().serializeToString(iconSvg);
+          const img = new Image();
+          const svgBlob = new Blob([svgString], {
+            type: "image/svg+xml;charset=utf-8",
+          });
+          const url = URL.createObjectURL(svgBlob);
+
+          img.onload = () => {
+            iconCtx.drawImage(img, 0, 0, 64, 64); // Render the icon on the off-screen canvas
+            context.drawImage(iconCanvas, 32, 32, 64, 64); // Draw the icon on the main canvas
+            context.fillText(skill.name, 128, 64);
+
+            const texture = new THREE.CanvasTexture(canvas);
+            const spriteMaterial = new THREE.SpriteMaterial({ map: texture });
+            const sprite = new THREE.Sprite(spriteMaterial);
+
+            sprite.scale.set(4, 1, 1);
+            sprite.position.copy(skillMesh.position);
+            sprite.position.multiplyScalar(1.1);
+            sphere.add(sprite);
+            skillSprites.push(sprite);
+
+            URL.revokeObjectURL(url);
+          };
+          img.src = url;
+        }
+      }
     });
 
     const animate = () => {
       requestAnimationFrame(animate);
       sphere.rotation.y += 0.005;
-      skillTexts.forEach((text) => text.lookAt(camera.position));
+      skillSprites.forEach((sprite) => sprite.lookAt(camera.position));
       renderer.render(scene, camera);
     };
 
@@ -123,7 +175,9 @@ const Skills: React.FC = () => {
       className="py-20 bg-gray-800 relative overflow-hidden"
     >
       <div className="container mx-auto px-6 z-10 relative">
-        <h2 className="section-heading">Skills</h2>
+        <h2 className="text-4xl font-bold text-center text-white mb-12">
+          Skills
+        </h2>
         <motion.div
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 1 } : { opacity: 0 }}

@@ -21,11 +21,11 @@ function App() {
   return (
     <AnimatePresence>
       {loading ? (
-        <div className="fixed inset-0 bg-background flex items-center justify-center">
+        <div className="fixed inset-0 bg-background dark:bg-dark-background flex items-center justify-center">
           <div className="w-16 h-16 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
         </div>
       ) : (
-        <div className="min-h-screen bg-background text-text">
+        <div className="min-h-screen bg-background dark:bg-dark-background text-text dark:text-dark-text transition-colors duration-300">
           <CustomCursor />
           <Header />
           <main>

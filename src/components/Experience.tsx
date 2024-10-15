@@ -7,29 +7,41 @@ const experiences = [
     title: "Junior Full Stack Developer",
     company: "Agua Wireless System",
     period: "May 2024 - June 2024",
-    description:
-      "Lead the frontend development team in creating cutting-edge web applications using React and Three.js.",
+    description: [
+      "Developed a comprehensive project from scratch, implementing four modules that improved system efficiency by 30%.",
+      "Ensured seamless client-side and server-side architecture integration for enhanced performance.",
+      "Improved code quality across projects by 25% through dynamic component usage, reducing redundancy.",
+    ],
   },
   {
     title: "Software Developer Intern",
     company: "Kelp",
     period: "Oct 2023 - Feb 2024",
-    description:
-      "Lead the frontend development team in creating cutting-edge web applications using React and Three.js.",
+    description: [
+      "Refined user experiences in core modules, enhancing intuitive interaction and overall user satisfaction.",
+      "Optimized backend operations to improve system stability and efficiency.",
+      "Resolved critical bugs, significantly increasing overall system reliability.",
+    ],
   },
   {
     title: "Frontend Developer Intern",
     company: "DFIIE",
     period: "May 2023 - Aug 2023",
-    description:
-      "Developed and maintained full-stack applications using the MERN stack, improving overall performance by 40%.",
+    description: [
+      "Architected DFIIE's website, enhancing the digital platform through design and development leadership.",
+      "Innovated a platform spotlighting startups, connecting them with DFIIE’s mission and resources.",
+      "Enabled startups to showcase their ventures, driving community engagement and support.",
+    ],
   },
   {
     title: "Frontend Developer Intern",
     company: "Suvidha Foundation",
     period: "Dec 2022 - Jan 2023",
-    description:
-      "Assisted in the development of responsive websites and implemented UI/UX designs using HTML, CSS, and JavaScript.",
+    description: [
+      "Led the design and development team in creating innovative products, showcasing leadership and project execution skills.",
+      "Enhanced operational efficiency through effective project and team management.",
+      "Contributed to product development from concept to deployment, gaining significant experience in a collaborative environment.",
+    ],
   },
 ];
 
@@ -55,7 +67,7 @@ const Experience: React.FC = () => {
   };
 
   return (
-    <section id="experience" className="py-20 bg-gray-900">
+    <section id="experience" className="py-20 bg-gray-900 text-text">
       <div className="container mx-auto px-6">
         <h2 className="section-heading">Experience</h2>
         <motion.div
@@ -69,12 +81,19 @@ const Experience: React.FC = () => {
             <motion.div
               key={index}
               variants={itemVariants}
-              className="timeline-item"
+              className="timeline-item mb-6"
             >
               <h3 className="text-xl font-semibold">{exp.title}</h3>
               <p className="text-primary">{exp.company}</p>
               <p className="text-sm text-gray-400 mb-2">{exp.period}</p>
-              <p className="text-gray-300">{exp.description}</p>
+              <ul className="text-gray-300">
+                {exp.description.map((point, i) => (
+                  <li key={i} className="flex items-start">
+                    <span className="mr-2 text-white">•</span>
+                    <span>{point}</span>
+                  </li>
+                ))}
+              </ul>
             </motion.div>
           ))}
         </motion.div>
