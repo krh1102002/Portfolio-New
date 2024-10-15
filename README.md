@@ -65,32 +65,6 @@ npm start
 
 After running this command, the application will start after some time.
 
-## Project Contents
-
-### 1. TiffinWala
-
-A digital solution for the tiffin service sector, enabling provider scalability and customer interaction.
-
-### 2. 3D Portfolio
-
-An interactive 3D portfolio built with Three.js and React Three Fiber, showcasing a unique way to display projects.
-
-### 3. Incubation Center Website
-
-A comprehensive platform designed to support startups by providing resources, mentorship, and networking opportunities.
-
-### 4. Cryptic Conundrum
-
-An innovative online puzzle game merging language mastery with logical puzzles, providing an engaging user experience.
-
-### 5. Airbnb Clone
-
-A productivity app that features a booking system with flexible pricing, optimized user experience, and scalable data management.
-
-### 6. Old Portfolio
-
-A classic showcase of previous work, demonstrating skills and past projects.
-
 ## Conclusion
 
 Feel free to explore the projects and connect with me through the links provided. This portfolio is a reflection of my journey in web development, and I look forward to new opportunities and challenges ahead.
