@@ -43,7 +43,6 @@ cd Portfolio-New
 Install dependencies for the client:
 
 ```bash
-cd client
 npm install
 ```
 
