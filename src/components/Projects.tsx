@@ -98,6 +98,7 @@ const Projects: React.FC = () => {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0 },
   };
+// adding new stuf
 
   return (
     <section id="projects" className="py-20 bg-gray-800">
