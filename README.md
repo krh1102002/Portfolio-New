@@ -51,16 +51,10 @@ npm install
 
 #### To Start the Frontend Server:
 
-Move into the client directory:
-
-```bash
-cd client
-```
-
 Start the frontend server:
 
 ```bash
-npm start
+npm run dev
 ```
 
 After running this command, the application will start after some time.
