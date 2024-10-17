@@ -22,7 +22,6 @@ import {
 } from "react-icons/si";
 import { MdDesignServices } from "react-icons/md";
 
-// Updated skills list with correct icons
 const skills = [
   { name: "HTML", icon: FaHtml5 },
   { name: "CSS", icon: FaCss3Alt },
@@ -70,7 +69,9 @@ const Skills: React.FC = () => {
     const sphere = new THREE.Points(geometry, material);
 
     scene.add(sphere);
-    camera.position.z = 15;
+
+    // Set camera position based on device type
+    camera.position.z = window.innerWidth < 768 ? 18 : 15;
 
     const skillSpheres: THREE.Mesh[] = [];
     const skillSprites: THREE.Sprite[] = [];
@@ -87,7 +88,6 @@ const Skills: React.FC = () => {
       sphere.add(skillMesh);
       skillSpheres.push(skillMesh);
 
-      // Create icon and text sprite
       const canvas = document.createElement("canvas");
       const context = canvas.getContext("2d");
       canvas.width = 512;
@@ -99,7 +99,6 @@ const Skills: React.FC = () => {
         context.textAlign = "left";
         context.textBaseline = "middle";
 
-        // Render icon
         const IconComponent = skill.icon;
         const iconCanvas = document.createElement("canvas");
         const iconCtx = iconCanvas.getContext("2d");
@@ -125,8 +124,8 @@ const Skills: React.FC = () => {
           const url = URL.createObjectURL(svgBlob);
 
           img.onload = () => {
-            iconCtx.drawImage(img, 0, 0, 64, 64); // Render the icon on the off-screen canvas
-            context.drawImage(iconCanvas, 32, 32, 64, 64); // Draw the icon on the main canvas
+            iconCtx.drawImage(img, 0, 0, 64, 64);
+            context.drawImage(iconCanvas, 32, 32, 64, 64);
             context.fillText(skill.name, 128, 64);
 
             const texture = new THREE.CanvasTexture(canvas);
